@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
+.idea/*
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
@@ -35,4 +35,6 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Store!/.idea/
+!/.idea/
+!/.idea/encodings.xml
