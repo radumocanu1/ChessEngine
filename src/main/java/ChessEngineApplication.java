@@ -1,22 +1,24 @@
-import layout.Board;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import GUI.ChessGUI;
+import GUI.BoardGUI;
+import lombok.extern.slf4j.Slf4j;
+import pieces.Piece;
 import utils.BoardUtils;
+import utils.GameUtils;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
+@Slf4j
 public class ChessEngineApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChessEngineApplication.class);
-    public static void main(String[] args) throws IOException {
-        logger.info("Chess engine starting...");
-        HashMap<String, Image> pieces = BoardUtils.getPiecesMap();
+    public static void main(String[] args) throws InterruptedException {
+        log.info("Chess engine starting...");
+        List<Piece> pieces = BoardUtils.getPiecesList();
         HashMap<Character, Integer> positions = BoardUtils.getPositionsMap();
-        Board.createBoard(pieces,positions);
-       // Board.reverseFrame();
-        Board.showBoard();
+        ChessGUI chessGUI = new ChessGUI(new BoardGUI(GameUtils.generateBoardFromFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"),80));
+        chessGUI.generateBoard();
+        chessGUI.showBoard();
+        chessGUI.createInteractiveEnvironment();
 
 
     }

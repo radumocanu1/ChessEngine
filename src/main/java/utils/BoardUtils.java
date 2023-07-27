@@ -1,33 +1,49 @@
 package utils;
 
+import enums.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pieces.*;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BoardUtils {
     private static final Logger logger = LoggerFactory.getLogger(BoardUtils.class);
-    public static HashMap<String, Image> getPiecesMap() {
+    public static List<Piece> getPiecesList() {
         logger.debug("Generating pieces...");
-        HashMap<String,Image> pieces = new HashMap<>();
+        List<Piece> pieces = new ArrayList<>();
+        HashMap<Character,Integer> positions = getPositionsMap();
         BufferedImage originalImage = getOriginalImage("src/main/resources/ChessPieces.png");
-        pieces.put("whiteKing", originalImage.getSubimage(0,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("whiteQueen", originalImage.getSubimage(200,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("whiteBishop", originalImage.getSubimage(400,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("whiteKnight", originalImage.getSubimage(600,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("whiteRook", originalImage.getSubimage(800,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("whitePawn", originalImage.getSubimage(1000,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackKing", originalImage.getSubimage(0,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackQueen", originalImage.getSubimage(200,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackBishop", originalImage.getSubimage(400,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackKnight", originalImage.getSubimage(600,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackRook", originalImage.getSubimage(800,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
-        pieces.put("blackPawn", originalImage.getSubimage(1000,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH));
+        pieces.add(new King(positions.get('e'),positions.get('1'),Color.WHITE,originalImage.getSubimage(0,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new King(positions.get('e'),positions.get('8'),Color.BLACK,originalImage.getSubimage(0,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Queen(positions.get('d'),positions.get('1'),Color.WHITE,originalImage.getSubimage(200,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Queen(positions.get('d'),positions.get('8'),Color.BLACK,originalImage.getSubimage(200,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Bishop(positions.get('c'),positions.get('1'),Color.WHITE,originalImage.getSubimage(400,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Bishop(positions.get('f'),positions.get('1'),Color.WHITE,originalImage.getSubimage(400,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Bishop(positions.get('c'),positions.get('8'),Color.BLACK,originalImage.getSubimage(400,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Bishop(positions.get('f'),positions.get('8'),Color.BLACK,originalImage.getSubimage(400,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Knight(positions.get('b'),positions.get('1'),Color.WHITE,originalImage.getSubimage(600,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Knight(positions.get('g'),positions.get('1'),Color.WHITE,originalImage.getSubimage(600,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Knight(positions.get('b'),positions.get('8'),Color.BLACK,originalImage.getSubimage(600,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Knight(positions.get('g'),positions.get('8'),Color.BLACK,originalImage.getSubimage(600,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Rook(positions.get('a'),positions.get('1'),Color.WHITE,originalImage.getSubimage(800,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Rook(positions.get('h'),positions.get('1'),Color.WHITE,originalImage.getSubimage(800,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Rook(positions.get('a'),positions.get('8'),Color.BLACK,originalImage.getSubimage(800,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        pieces.add(new Rook(positions.get('h'),positions.get('8'),Color.BLACK,originalImage.getSubimage(800,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        for (Character letter : List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')){
+            pieces.add(new Pawn(positions.get(letter), positions.get('2'), Color.WHITE, originalImage.getSubimage(1000,0,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        }
+        for (Character letter : List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')){
+            pieces.add(new Pawn(positions.get(letter), positions.get('7'), Color.BLACK, originalImage.getSubimage(1000,200,200,200).getScaledInstance(80,80,BufferedImage.SCALE_SMOOTH)));
+        }
+
+
 
         return pieces;
 
@@ -61,5 +77,25 @@ public class BoardUtils {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static Character convertFileNumberToCharacter (int file){
+        if (file == 0)
+            return 'a';
+        if (file == 1)
+            return 'b';
+        if (file == 2)
+            return 'c';
+        if (file == 3)
+            return 'd';
+        if (file == 4)
+            return 'e';
+        if (file == 5)
+            return 'f';
+        if (file == 6)
+            return 'g';
+        if (file == 7)
+            return 'h';
+        return null;
     }
 }

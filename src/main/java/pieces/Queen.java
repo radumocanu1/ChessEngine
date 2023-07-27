@@ -1,19 +1,22 @@
 package pieces;
 
 import enums.Color;
+import lombok.RequiredArgsConstructor;
 
 import java.awt.*;
 
-public class Pawn extends Piece {
+
+public class Queen extends Piece {
 
 
-    public Pawn(int pozX, int pozY, Color color, Image image) {
+    public Queen(int pozX, int pozY, Color color, Image image) {
         super(pozX, pozY, color, image);
     }
 
-    public Pawn(Color color, Image image) {
+    public Queen(Color color, Image image) {
         super(color, image);
     }
+
 
     @Override
     public void remove() {

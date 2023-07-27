@@ -4,14 +4,14 @@ import enums.Color;
 
 import java.awt.*;
 
-public class Pawn extends Piece {
+public class King extends Piece{
 
 
-    public Pawn(int pozX, int pozY, Color color, Image image) {
+    public King(int pozX, int pozY, Color color, Image image) {
         super(pozX, pozY, color, image);
     }
 
-    public Pawn(Color color, Image image) {
+    public King(Color color, Image image) {
         super(color, image);
     }
 
